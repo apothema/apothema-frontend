@@ -1,6 +1,4 @@
-# apothema-frontend
-Frontend files for the Apothem project
-
+# Apothem frontend files
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
