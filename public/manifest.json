@@ -1,16 +1,20 @@
 {
   "short_name": "Apothem",
-  "name": "Apothem Electronic Grade Registering App",
+  "name": "Apothem Electronic Grade Register App",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.png",
+      "sizes": "8x8 16x16 32x32 64x64",
+      "type": "image/png"
+    }, {
+      "src": "icon-primary.svg",
+      "sizes": "8x8 16x16 32x32 64x64 128x128 256x256 512x512 1024x1024",
+      "type": "image/svg"
     }
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#1F2629",
-  "orientation": "landscape-primary"
+  "theme_color": "#D50000",
+  "background_color": "#263238",
+  "orientation": "portrait-primary"
 }
