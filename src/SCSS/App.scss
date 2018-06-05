@@ -1,3 +1,5 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "Iconic.scss";
 @import "Colors.scss";
 
 .App {
@@ -6,11 +8,10 @@
 
 .App-logo {
     height: 80px;
-    border-radius: 25%;
 }
 
 .App-header {
-    background-color: material-color("blue-grey", "1000");
+    background-color: material-color("blue-grey", "900");
     height: 150px;
     padding: 20px;
     color: white;
