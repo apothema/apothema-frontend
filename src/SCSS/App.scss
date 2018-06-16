@@ -2,25 +2,35 @@
 @import "Iconic.scss";
 @import "Colors.scss";
 
-.App {
-    text-align: center;
+@font-face {
+  font-family: 'Roboto';
+  src: local('../fonts/Roboto.ttf');
 }
 
-.App-logo {
-    height: 80px;
-}
+.App-login {
+  font-family: Roboto, sans-serif;
 
-.App-header {
+  .header {
     background-color: material-color("blue-grey", "900");
     height: 150px;
     padding: 20px;
     color: white;
-}
+    text-align: center;
 
-.App-title {
-    font-size: 1.5em;
-}
+    .logo {
+      height: 80px;
+    }
+  }
 
-.App-intro {
-    font-size: large;
+  .body {
+    padding: 1em;
+
+    .login > * {
+      margin-bottom: 0.25em;
+    }
+    .login-btn {
+      width: 100%;
+      text-align: left;
+    }
+  }
 }

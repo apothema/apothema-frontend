@@ -1,27 +1,21 @@
 import React, {Component} from 'react';
-import logo from './icons/icon-dark-rounded.svg';
 import './SCSS/App.css';
-import {Button} from "reactstrap";
+import {Router, Route} from 'react-router-dom';
+import Login from "./views/Login";
+import Home from "./views/Home";
+import Mail from "./views/Mail";
+import history from "./views/utils/history";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h1 className="App-title">Welcome to Apothem</h1>
-        </header>
-        <p>
-          Apothem is an electronic register app for school grades, homework and for communication between
-          students and teachers.
-        </p>
-        <p>
-          Apothem also is available as a mobile app, which does not have to be installed directly on your
-          phone, but is added to the home screen by your browser.
-        </p>
-        <Button outline color={"success"}><span className="oi oi-browser"/></Button>
-
-      </div>
+      <Router history={history}>
+        <div>
+          <Route exact path="/" component={Login}/>
+          <Route path="/home" component={Home}/>
+          <Route path="/mail" component={Mail}/>
+        </div>
+      </Router>
     );
   }
 }
