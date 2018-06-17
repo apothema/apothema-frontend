@@ -3,6 +3,7 @@ import {Button, Col, Form, Input, Row} from "reactstrap";
 import Header from "./subviews/Header";
 import {Redirect} from "react-router-dom";
 import history from "./utils/history";
+import {LoginContext} from "./contexts/LoginContext"
 
 class Login extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class Login extends Component {
       username: "",
       password: "",
       login: 0,
-      redirect: undefined
+      redirect: undefined,
+      from: props.from
     };
     document.title = "Login into Apothem";
 
@@ -26,21 +28,23 @@ class Login extends Component {
     });
   }
 
-  handlePasswordSubmit(e) {
-    e.preventDefault();
-    setTimeout(() => {
-      history.push("/");
-      this.setState({redirect: "/home"});
-    }, 500);
-  }
-
   handleUserSubmit(e) {
     e.preventDefault();
     if (!["", "admin", "ThePhisics101"].includes(this.state.username)) {
       e.target["username"].classList.add("is-invalid");
     } else {
-      setTimeout(() => this.setState({login: 1}), 200);
+      setTimeout(() => {
+        this.setState({login: 1})
+      }, 200);
     }
+  }
+
+  handlePasswordSubmit(e, authenticate) {
+    e.preventDefault();
+    authenticate(() => {
+      history.push("/login");
+      this.setState({redirect: this.state.from || "/home"});
+    });
   }
 
   render() {
@@ -56,10 +60,15 @@ class Login extends Component {
       </Form>
     );
     const formPassword = (
-      <Form className="login" noValidate onSubmit={this.handlePasswordSubmit}>
-        <Input value={this.state.password} name="password" onChange={this.handleChange} placeholder="Password" autoFocus type="password"/>
-        <Button className="login-btn" color="success">Login</Button>
-      </Form>
+      <LoginContext.Consumer>
+        {({isAuthenticated, authenticate}) => (
+          <Form className="login" noValidate onSubmit={(e) => this.handlePasswordSubmit(e, authenticate)}>
+            <Input value={this.state.password} name="password" onChange={this.handleChange} placeholder="Password"
+                   autoFocus type="password"/>
+            <Button className="login-btn" color="success">Login</Button>
+          </Form>
+        )}
+      </LoginContext.Consumer>
     );
     return (
       <div className="App-login">

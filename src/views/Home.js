@@ -5,13 +5,13 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    document.title = "Apothem"
+    document.title = "Apothem";
   }
 
   render() {
     return (
       <div className="App-home">
-        <NavBar theme="light" active="home"/>
+        <NavBar active="home"/>
       </div>
     )
   }

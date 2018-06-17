@@ -11,7 +11,7 @@ class Mail extends Component {
   render() {
     return (
       <div className="App-mail">
-        <NavBar theme="dark" active="mail"/>
+        <NavBar active="mail"/>
       </div>
     );
   }
