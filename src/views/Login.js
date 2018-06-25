@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Col, Form, Input, Row} from "reactstrap";
-import Header from "./subviews/Header";
 import {Redirect} from "react-router-dom";
-import history from "./utils/history";
+import "../SCSS/Login.css";
+import Header from "./subviews/Header";
 import {LoginContext} from "./contexts/LoginContext"
 
 class Login extends Component {
@@ -11,15 +11,17 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      login: 0,
       redirect: undefined,
-      from: props.from
+      loginUsernameInputClass: "",
+      loginUsernameClass: "",
+      loginPasswordClass: "no-show"
     };
     document.title = "Login into Apothem";
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange         = this.handleChange.bind(this);
     this.handlePasswordSubmit = this.handlePasswordSubmit.bind(this);
-    this.handleUserSubmit = this.handleUserSubmit.bind(this);
+    this.handleUserSubmit     = this.handleUserSubmit.bind(this);
+    this.handleBack           = this.handleBack.bind(this);
   }
 
   handleChange(e) {
@@ -31,47 +33,45 @@ class Login extends Component {
   handleUserSubmit(e) {
     e.preventDefault();
     if (!["", "admin", "ThePhisics101"].includes(this.state.username)) {
-      e.target["username"].classList.add("is-invalid");
+      this.setState({loginUsernameInputClass: "is-invalid"});
     } else {
+      this.setState({
+        loginUsernameClass: "slide-out-left",
+        loginPasswordClass: "slide-in-right"
+      });
       setTimeout(() => {
-        this.setState({login: 1})
-      }, 200);
+        this.setState({
+          loginUsernameClass: "no-show"
+        })
+      }, 290);
     }
   }
 
   handlePasswordSubmit(e, authenticate) {
     e.preventDefault();
     authenticate(() => {
-      history.push("/login");
-      this.setState({redirect: this.state.from || "/home"});
+      this.setState({redirect: this.props.location.state.from || "/home"});
     });
+  }
+
+  handleBack() {
+    this.setState({
+      loginUsernameClass: "slide-in-left",
+      loginPasswordClass: "slide-out-right"
+    });
+    setTimeout(() => {
+      this.setState({
+        loginPasswordClass: "no-show"
+      });
+    }, 290)
   }
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect}/>
+      return <Redirect push to={this.state.redirect}/>
     }
-
-    // TODO: animated transitions
-    const formUsername = (
-      <Form className="login" noValidate onSubmit={this.handleUserSubmit}>
-        <Input value={this.state.username} name="username" onChange={this.handleChange} placeholder="Username" autoFocus/>
-        <Button className="login-btn" color="success">Next</Button>
-      </Form>
-    );
-    const formPassword = (
-      <LoginContext.Consumer>
-        {({isAuthenticated, authenticate}) => (
-          <Form className="login" noValidate onSubmit={(e) => this.handlePasswordSubmit(e, authenticate)}>
-            <Input value={this.state.password} name="password" onChange={this.handleChange} placeholder="Password"
-                   autoFocus type="password"/>
-            <Button className="login-btn" color="success">Login</Button>
-          </Form>
-        )}
-      </LoginContext.Consumer>
-    );
     return (
-      <div className="App-login">
+      <div className="login-view">
         <Header/>
         <div className="body">
           <p>
@@ -83,9 +83,25 @@ class Login extends Component {
             phone, but is added to the home screen by your browser.
           </p>
           <Row className="justify-content-sm-center">
-            <Col xs="12" sm="auto">
+            <Col xs="12" sm="auto" className="login-container">
               <h3>Login</h3>
-              {[formUsername, formPassword][this.state.login]}
+              <Form className={`login ${this.state.loginUsernameClass}`} noValidate onSubmit={this.handleUserSubmit}>
+                <Input className={this.state.loginUsernameInputClass} value={this.state.username} name="username"
+                       onChange={this.handleChange} placeholder="Username" autoFocus/>
+                <Button className="login-btn" color="success">Next</Button>
+              </Form>
+              <LoginContext.Consumer>
+                {({isAuthenticated, authenticate}) => (
+                  <Form className={`login ${this.state.loginPasswordClass}`} noValidate onSubmit={(e) => this.handlePasswordSubmit(e, authenticate)}>
+                    <Input value={this.state.password} name="password" onChange={this.handleChange} placeholder="Password"
+                           type="password"/>
+                    <Row>
+                      <Col><Button className="login-btn" color="danger" onClick={this.handleBack}>Back</Button></Col>
+                      <Col><Button className="login-btn" color="success">Login</Button></Col>
+                    </Row>
+                  </Form>
+                )}
+              </LoginContext.Consumer>
             </Col>
           </Row>
         </div>

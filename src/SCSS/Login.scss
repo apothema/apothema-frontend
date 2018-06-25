@@ -1,0 +1,39 @@
+.login-container {
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 208px;
+  height: 124px;
+
+  h3 {
+    padding: 0 1em;
+  }
+}
+
+.login {
+  position: absolute;
+  width: 100%;
+  padding: 0 1em;
+
+  input {
+    margin-bottom: 0.25em;
+  }
+
+  .col {
+    &:first-child {
+      padding-left: 1em;
+      padding-right: 2px;
+    }
+    &:last-child {
+      padding-left: 2px;
+      padding-right: 1em;
+    }
+  }
+}
+
+.login-btn {
+  width: 100%;
+  text-align: left;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}

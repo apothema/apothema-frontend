@@ -1,36 +1,28 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import "Iconic.scss";
-@import "Colors.scss";
+@import "libs/Iconic.scss";
+@import "libs/Slide.scss";
+@import "libs/Colors.scss";
 
 @font-face {
   font-family: 'Roboto';
   src: local('../fonts/Roboto.ttf');
 }
 
-.App-login {
+.App {
   font-family: Roboto, sans-serif;
+  overflow: hidden;
+  min-width: 100vw;
+}
 
-  .header {
-    background-color: material-color("blue-grey", "900");
-    height: 150px;
-    padding: 20px;
-    color: white;
-    text-align: center;
+.body {
+  padding: 1em;
+}
 
-    .logo {
-      height: 80px;
-    }
-  }
+.no-show {
+  display: none;
+}
 
-  .body {
-    padding: 1em;
-
-    .login > * {
-      margin-bottom: 0.25em;
-    }
-    .login-btn {
-      width: 100%;
-      text-align: left;
-    }
-  }
+// bootstrap overrides
+.bg-dark {
+  background-color: material-color("blue-grey", "900") !important;
 }

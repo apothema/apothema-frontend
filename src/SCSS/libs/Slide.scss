@@ -1,0 +1,28 @@
+@mixin slideX($from, $to) {
+  from { transform: translateX($from) }
+  to   { transform: translateX($to  ) }
+}
+@mixin slideY($from, $to) {
+  from { transform: translateY($from) }
+  to   { transform: translateY($to  ) }
+}
+
+@keyframes slide-in-left    { @include slideX(-100%, 0%) }
+@keyframes slide-in-right   { @include slideX( 100%, 0%) }
+@keyframes slide-in-top     { @include slideY(-100%, 0%) }
+@keyframes slide-in-bottom  { @include slideY( 100%, 0%) }
+
+@keyframes slide-out-left   { @include slideX(0%, -100%) }
+@keyframes slide-out-right  { @include slideX(0%,  100%) }
+@keyframes slide-out-top    { @include slideY(0%, -100%) }
+@keyframes slide-out-bottom { @include slideY(0%,  100%) }
+
+.slide-in-left    { animation: slide-in-left    300ms ease-out }
+.slide-in-right   { animation: slide-in-right   300ms ease-out }
+.slide-in-top     { animation: slide-in-top     300ms ease-out }
+.slide-in-bottom  { animation: slide-in-bottom  300ms ease-out }
+
+.slide-out-left   { animation: slide-out-left   300ms ease-out }
+.slide-out-right  { animation: slide-out-right  300ms ease-out }
+.slide-out-top    { animation: slide-out-top    300ms ease-out }
+.slide-out-bottom { animation: slide-out-bottom 300ms ease-out }

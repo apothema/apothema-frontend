@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Button, Collapse, Nav, Navbar, NavbarToggler, NavItem} from "reactstrap";
-import logo from '../../icons/icon-primary-rounded.svg';
+import logo from '../../icons/icon-transparent-rounded.svg';
 import NavLink from "../elems/NavLink";
 import Icon from "../elems/Icon";
 import {Link} from "react-router-dom";
 import {ThemeContext} from "../contexts/ThemeContext";
+import {LoginContext} from "../contexts/LoginContext"
 
 class NavBar extends Component {
   constructor(props) {
@@ -38,6 +39,11 @@ class NavBar extends Component {
                 <NavItem active={this.state.active === "mail"}><NavLink to="/mail"><Icon name="envelope-closed"/>Mail</NavLink></NavItem>
               </Nav>
               <Button color="success" onClick={toggleTheme}>Change theme</Button>
+              <LoginContext.Consumer>
+                {({isAuth, auth, signOut}) => (
+                  <Button color="danger" onClick={signOut}><Icon name="account-logout"/></Button>
+                )}
+              </LoginContext.Consumer>
             </Collapse>
           </Navbar>
         )}
